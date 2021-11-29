@@ -27,7 +27,23 @@
             window.Echo.channel('DemoChannel')
             .listen('WebsocketDemoEvent',(e)=>{
                 console.log(e.data)
-                userDataSet(e);
+                let data = JSON.parse(e.data);
+                console.log('data',data);
+                var html = '';
+                for (let index = 0; index < data.length; index++) {
+                    let element = data[index];
+                    // console.log('element', element);
+                    html = html + `
+                        <tr>
+                        <td>` + element.name + `</td>
+                        <td>` + element.email + `</td>
+                        </tr>
+                    `;
+                }
+                // console.log('html', html);
+                $('#people').html(html);
+
+                // userDataSet(e);
             });
 
             function userDataSet(e){
