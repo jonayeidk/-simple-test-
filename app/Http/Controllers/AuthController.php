@@ -23,7 +23,7 @@ class AuthController extends Controller
             $validator = Validator::make($request->all(), 
                       [ 
                       'name' => 'required',
-                      'email' => 'required|email',
+                      'email' => 'required|email|unique:users',
                       'password' => 'required',  
                       'c_password' => 'required|same:password', 
                      ]);  
@@ -138,7 +138,7 @@ class AuthController extends Controller
         try {
 
             $data = User::select('name','email')->get();
-            broadcast(new WebsocketDemoEvent($data));
+            broadcast(new WebsocketDemoEvent('sent-signal'));
             return Helper::responseSuccess($data);
 
         } catch (\Exexption $e) {
