@@ -138,7 +138,7 @@ class AuthController extends Controller
         try {
 
             $data = User::select('name','email')->get();
-            broadcast(new WebsocketDemoEvent('sent-signal'));
+            broadcast(new WebsocketDemoEvent(json_encode($data)));
             return Helper::responseSuccess($data);
 
         } catch (\Exexption $e) {
